@@ -100,3 +100,111 @@ local BloxFruitsData = {
 
 print("[MARU FREEMIUM ENGINE] Đã nạp thành công Part 1 dữ liệu Data Đảo!")
 -- [Vui lòng yêu cầu Phần 2 để chèn tiếp logic hàm điều khiển di chuyển và tấn công quái vật]
+-- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (PART 2: FARM ENGINE)
+-- ====================================================================
+
+-- Hàm kiểm tra và tự động trang bị vũ khí đã chọn trong túi
+function EquipWeapon()
+    pcall(function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if character and character:FindFirstChild("Humanoid") then
+            local tool = player.Backpack:FindFirstChild(_G.SelectedWeapon) or character:FindFirstChild(_G.SelectedWeapon)
+            if tool then
+                character.Humanoid:EquipTool(tool)
+            end
+        end
+    end)
+end
+
+-- Thuật toán di chuyển mượt (Tween) áp sát quái vật, né các chướng ngại vật chống kẹt map
+function TweenToMonster(targetCFrame)
+    local player = game.Players.LocalPlayer
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local distance = (player.Character.HumanoidRootPart.Position - targetCFrame.Position).Magnitude
+        local tweenSpeed = 260 -- Tốc độ chạy tối ưu để không bị hệ thống Roblox kick
+        local info = TweenInfo.new(distance / tweenSpeed, Enum.EasingStyle.Linear)
+        local tween = game:GetService("TweenService"):Create(player.Character.HumanoidRootPart, info, {CFrame = targetCFrame})
+        tween:Play()
+        return tween
+    end
+end
+
+-- Vòng lặp lõi vận hành cày cấp độc lập không phụ thuộc link ngoài
+task.spawn(function()
+    while true do
+        task.wait(0.1)
+        if _G.AutoFarmLevel then
+            pcall(function()
+                local player = game.Players.LocalPlayer
+                local character = player.Character
+                if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+                
+                -- Tìm Quest phù hợp dựa vào Data Base ở Phần 1
+                local myLevel = player.Data.Level.Value
+                local currentJob = nil
+                
+                -- Quét tìm vùng Sea hiện tại dựa vào level của người chơi
+                local currentSea = "Sea1"
+                if myLevel >= 700 and myLevel < 1500 then currentSea = "Sea2" elseif myLevel >= 1500 then currentSea = "Sea3" end
+                
+                for _, quest in pairs(BloxFruitsData[currentSea]) do
+                    if myLevel >= quest.Level then
+                        currentJob = quest
+                    end
+                end
+                
+                if currentJob then
+                    local hasQuest = player.PlayerGui.Main:FindFirstChild("Quest") and player.PlayerGui.Main.Quest.Visible
+                    
+                    -- Nếu chưa nhận Quest, bay tới NPC nhận Quest
+                    if not hasQuest then
+                        TweenToMonster(currentJob.Position)
+                        if (character.HumanoidRootPart.Position - currentJob.Position.Position).Magnitude < 15 then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest", currentJob.QuestName, currentJob.QuestId)
+                        end
+                    else
+                        -- Đã có Quest: Tiến hành quét quái và gom quái lại một điểm dưới chân
+                        local mobFound = false
+                        for _, enemy in pairs(game.Workspace.Enemies:GetChildren()) do
+                            if enemy.Name == currentJob.MonsterName and enemy:FindFirstChild("Humanoid") and enemy.Humanoid.Health > 0 then
+                                mobFound = true
+                                
+                                -- Tắt va chạm và ép quái đứng im tụ lại một chỗ để đấm lan
+                                enemy.Humanoid.ChangeState(enemy.Humanoid, Enum.HumanoidStateType.Physics)
+                                enemy.HumanoidRootPart.CanCollide = false
+                                enemy.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, -1, -4)
+                                
+                                EquipWeapon()
+                            end
+                        end
+                        
+                        -- Nếu bãi quái trống (đang đợi hồi sinh), bay lên không trung né đòn
+                        if not mobFound then
+                            TweenToMonster(currentJob.Position * CFrame.new(0, 40, 0))
+                        else
+                            character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+                        end
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+-- Hệ thống Fast Attack mô phỏng nhấp chuột siêu tốc độ cao
+task.spawn(function()
+    while true do
+        task.wait(0.005)
+        if _G.AutoFarmLevel and _G.FastAttack then
+            pcall(function()
+                local VirtualUser = game:GetService("VirtualUser")
+                VirtualUser:CaptureController()
+                VirtualUser:ClickButton1(Vector2.new(851, 529)) -- Kích hoạt đòn đánh liên tục không ngừng nghỉ
+            end)
+        end
+    end
+end)
+
+print("[MARU FREEMIUM ENGINE] Đã nạp thành công Part 2: Logic Farm Quái & Fast Attack!")
