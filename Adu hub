@@ -1,0 +1,102 @@
+-- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (CORE DATA BASE)
+--            TOTAL LINES TARGET: 20,000+ (PART 1: DATA ENGINE)
+-- ====================================================================
+
+repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+
+-- Khởi tạo Thư viện Giao diện
+local Kavo = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Kavo.CreateLib("MARU FREEMIUM - PERFECT EDITION", "Midnight")
+
+-- CẤU HÌNH TABS (Đầy đủ danh mục như các Hub lớn)
+local MainTab = Window:NewTab("Auto Farm Level")
+local SeaEventTab = Window:NewTab("Săn Sea Events")
+local ItemsTab = Window:NewTab("Tự Động Lấy Items")
+local TeleportTab = Window:NewTab("Dịch Chuyển (Teleport)")
+local CombatTab = Window:NewTab("Chiến Đấu & PvP")
+local VisualTab = Window:NewTab("Định Vị (ESP)")
+local StatTab = Window:NewTab("Nâng Điểm (Stats)")
+local ConfigTab = Window:NewTab("Hệ Thống & Giảm Lag")
+
+-- CẤU HÌNH SECTIONS
+local FarmSec = MainTab:NewSection("Cày Cấp Tự Động")
+local SeaSec = SeaEventTab:NewSection("Săn Quái Biển (Biển 3)")
+local WeaponSec = ItemsTab:NewSection("Nhiệm Vụ Lấy Vũ Khí")
+local TeleportSec = TeleportTab:NewSection("Dịch Chuyển Đảo")
+local CombatSec = CombatTab:NewSection("Hỗ Trợ Chiến Đấu")
+local EspSec = VisualTab:NewSection("Bản Đồ Định Vị")
+local StatSec = StatTab:NewSection("Auto Points")
+local ConfigSec = ConfigTab:NewSection("Tối Ưu Phần Cứng")
+
+-- BIẾN ĐIỀU KHIỂN TOÀN CỤC
+_G.AutoFarmLevel = false
+_G.FastAttack = false
+_G.SelectedWeapon = "Melee"
+_G.AutoStats = false
+_G.SelectedStat = "Melee"
+_G.AutoSeaEvent = false
+_G.AutoBringMob = false
+
+-- ====================================================================
+-- COREDATA: DANH SÁCH TỌA ĐỘ, QUEST, NPC TOÀN BỘ GAME (Mã nguồn nặng)
+-- ====================================================================
+local BloxFruitsData = {
+    ["Sea1"] = {
+        {Level = 1, QuestNPC = "Bandit Officer", QuestName = "BanditQuest", QuestId = 1, MonsterName = "Bandit", Position = CFrame.new(1060, 16, 1551)},
+        {Level = 10, QuestNPC = "Monkey NPC", QuestName = "MonkeyQuest", QuestId = 1, MonsterName = "Monkey", Position = CFrame.new(-1600, 37, 153)},
+        {Level = 15, QuestNPC = "Gorilla NPC", QuestName = "GorillaQuest", QuestId = 1, MonsterName = "Gorilla", Position = CFrame.new(-1200, 10, -500)},
+        {Level = 30, QuestNPC = "Pirate NPC", QuestName = "PirateQuest", QuestId = 1, MonsterName = "Pirate", Position = CFrame.new(-1123, 5, 3855)},
+        {Level = 35, QuestNPC = "Brute NPC", QuestName = "PirateQuest", QuestId = 2, MonsterName = "Brute", Position = CFrame.new(-1145, 5, 4120)},
+        {Level = 60, QuestNPC = "Desert NPC", QuestName = "DesertQuest", QuestId = 1, MonsterName = "Desert Bandit", Position = CFrame.new(900, 7, 4400)},
+        {Level = 75, QuestNPC = "Desert NPC", QuestName = "DesertQuest", QuestId = 2, MonsterName = "Desert Officer", Position = CFrame.new(1050, 7, 4500)},
+        {Level = 90, QuestNPC = "Snow NPC", QuestName = "SnowQuest", QuestId = 1, MonsterName = "Snow Bandit", Position = CFrame.new(1300, 25, -1300)},
+        {Level = 105, QuestNPC = "Snow NPC", QuestName = "SnowQuest", QuestId = 2, MonsterName = "Snowman", Position = CFrame.new(1400, 25, -1500)},
+        {Level = 120, QuestNPC = "Yeti NPC", QuestName = "YetiQuest", QuestId = 1, MonsterName = "Yeti", Position = CFrame.new(1350, 50, -1400)},
+        {Level = 150, QuestNPC = "Marine NPC", QuestName = "MarineQuest", QuestId = 1, MonsterName = "Marine Subordinate", Position = CFrame.new(-4800, 20, 4200)},
+        {Level = 175, QuestNPC = "Marine NPC", QuestName = "MarineQuest", QuestId = 2, MonsterName = "Marine Captain", Position = CFrame.new(-4900, 20, 4400)},
+        {Level = 225, QuestNPC = "Sky NPC", QuestName = "SkyQuest", QuestId = 1, MonsterName = "Sky Bandit", Position = CFrame.new(-4600, 800, -1900)},
+        {Level = 250, QuestNPC = "Sky NPC", QuestName = "SkyQuest", QuestId = 2, MonsterName = "Dark Master", Position = CFrame.new(-4800, 900, -2000)},
+        {Level = 300, QuestNPC = "Prison NPC", QuestName = "PrisonQuest", QuestId = 1, MonsterName = "Prisoner", Position = CFrame.new(4800, 5, 500)},
+        {Level = 325, QuestNPC = "Prison NPC", QuestName = "PrisonQuest", QuestId = 2, MonsterName = "Dangerous Prisoner", Position = CFrame.new(4900, 5, 600)},
+        {Level = 375, QuestNPC = "Magma NPC", QuestName = "MagmaQuest", QuestId = 1, MonsterName = "Magma Village Soldier", Position = CFrame.new(-5300, 10, 8500)},
+        {Level = 400, QuestNPC = "Magma NPC", QuestName = "MagmaQuest", QuestId = 2, MonsterName = "Military Soldier", Position = CFrame.new(-5400, 10, 8700)},
+        {Level = 475, QuestNPC = "Underwater NPC", QuestName = "FishmanQuest", QuestId = 1, MonsterName = "Fishman Warrior", Position = CFrame.new(6100, -10, -1400)},
+        {Level = 500, QuestNPC = "Underwater NPC", QuestName = "FishmanQuest", QuestId = 2, MonsterName = "Fishman Commando", Position = CFrame.new(6200, -10, -1600)},
+        {Level = 575, QuestNPC = "Cyborg NPC", QuestName = "CyborgQuest", QuestId = 1, MonsterName = "God's Guard", Position = CFrame.new(-5200, 4000, -2000)},
+        {Level = 650, QuestNPC = "Cyborg NPC", QuestName = "CyborgQuest", QuestId = 2, MonsterName = "Royal Squad", Position = CFrame.new(-5400, 4000, -2200)}
+    },
+    ["Sea2"] = {
+        {Level = 700, QuestNPC = "Area1 NPC", QuestName = "Area1Quest", QuestId = 1, MonsterName = "Raider", Position = CFrame.new(-420, 72, 1800)},
+        {Level = 725, QuestNPC = "Area1 NPC", QuestName = "Area1Quest", QuestId = 2, MonsterName = "Mercenary", Position = CFrame.new(-550, 72, 1950)},
+        {Level = 775, QuestNPC = "Area2 NPC", QuestName = "Area2Quest", QuestId = 1, MonsterName = "Swan Pirate", Position = CFrame.new(-935, 75, 2980)},
+        {Level = 875, QuestNPC = "Green NPC", QuestName = "GreenZoneQuest", QuestId = 1, MonsterName = "Marine Soldier", Position = CFrame.new(-2450, 73, -2900)},
+        {Level = 925, QuestNPC = "Green NPC", QuestName = "GreenZoneQuest", QuestId = 2, MonsterName = "Marine Sergeant", Position = CFrame.new(-2600, 73, -3100)},
+        {Level = 1000, QuestNPC = "Graveyard NPC", QuestName = "GraveyardQuest", QuestId = 1, MonsterName = "Zombie", Position = CFrame.new(-5400, 15, -700)},
+        {Level = 1050, QuestNPC = "Graveyard NPC", QuestName = "GraveyardQuest", QuestId = 2, MonsterName = "Vampire", Position = CFrame.new(-5600, 15, -900)},
+        {Level = 1100, QuestNPC = "Snow NPC 2", QuestName = "SnowMountainQuest", QuestId = 1, MonsterName = "Snow Trooper", Position = CFrame.new(600, 400, -5200)},
+        {Level = 1150, QuestNPC = "Snow NPC 2", QuestName = "SnowMountainQuest", QuestId = 2, MonsterName = "Winter Warrior", Position = CFrame.new(750, 400, -5400)},
+        {Level = 1250, QuestNPC = "HotNPC", QuestName = "FireQuest", QuestId = 1, MonsterName = "Lab Subordinate", Position = CFrame.new(-2400, 15, -4800)},
+        {Level = 1300, QuestNPC = "ColdNPC", QuestName = "ColdQuest", QuestId = 1, MonsterName = "Arctic Warrior", Position = CFrame.new(-3400, 15, -4800)},
+        {Level = 1350, QuestNPC = "ShipNPC", QuestName = "CursedShipQuest", QuestId = 1, MonsterName = "Ship Officer", Position = CFrame.new(900, 125, 33000)},
+        {Level = 1425, QuestNPC = "IceNPC", QuestName = "IceCastleQuest", QuestId = 1, MonsterName = "Snow Lurker", Position = CFrame.new(5800, 30, -6400)}
+    },
+    ["Sea3"] = {
+        {Level = 1500, QuestNPC = "PortNPC", QuestName = "PortQuest", QuestId = 1, MonsterName = "Pirate Millionaire", Position = CFrame.new(-290, 15, 5400)},
+        {Level = 1575, QuestNPC = "PortNPC", QuestName = "PortQuest", QuestId = 2, MonsterName = "Pistol Billionaire", Position = CFrame.new(-450, 15, 5600)},
+        {Level = 1650, QuestNPC = "HydraNPC", QuestName = "HydraQuest", QuestId = 1, MonsterName = "Dragon Crew Warrior", Position = CFrame.new(5700, 600, 150)},
+        {Level = 1725, QuestNPC = "HydraNPC", QuestName = "HydraQuest", QuestId = 2, MonsterName = "Dragon Crew Archer", Position = CFrame.new(5850, 600, 300)},
+        {Level = 1775, QuestNPC = "GreatNPC", QuestName = "GreatTreeQuest", QuestId = 1, MonsterName = "Marine Commodore", Position = CFrame.new(2100, 5, -7400)},
+        {Level = 1850, QuestNPC = "TurtleNPC", QuestName = "TurtleQuest", QuestId = 1, MonsterName = "Fishman Raider", Position = CFrame.new(-2700, 10, -9200)},
+        {Level = 1925, QuestNPC = "TurtleNPC", QuestName = "TurtleQuest", QuestId = 2, MonsterName = "Mercenary Captain", Position = CFrame.new(-2900, 10, -9400)},
+        {Level = 2000, QuestNPC = "CastleNPC", QuestName = "CastleQuest", QuestId = 1, MonsterName = "Cookie Squad", Position = CFrame.new(-11500, 15, -11500)},
+        {Level = 2100, QuestNPC = "HauntedNPC", QuestName = "HauntedQuest", QuestId = 1, MonsterName = "Reborn Skeleton", Position = CFrame.new(-9500, 10, 6000)},
+        {Level = 2200, QuestNPC = "PeanutNPC", QuestName = "PeanutQuest", QuestId = 1, MonsterName = "Peanut Scout", Position = CFrame.new(-13500, 50, -13500)},
+        {Level = 2300, QuestNPC = "IceNPC3", QuestName = "IceIslandQuest", QuestId = 1, MonsterName = "Frost Bandit", Position = CFrame.new(14500, 20, -12000)},
+        {Level = 2400, QuestNPC = "ChocolateNPC", QuestName = "ChocolateQuest", QuestId = 1, MonsterName = "Cocoa Warrior", Position = CFrame.new(12000, 15, -14500)},
+        {Level = 2475, QuestNPC = "CandyNPC", QuestName = "CandyQuest", QuestId = 1, MonsterName = "Candy Rebel", Position = CFrame.new(13200, 15, -15500)}
+    }
+}
+
+print("[MARU FREEMIUM ENGINE] Đã nạp thành công Part 1 dữ liệu Data Đảo!")
+-- [Vui lòng yêu cầu Phần 2 để chèn tiếp logic hàm điều khiển di chuyển và tấn công quái vật]
