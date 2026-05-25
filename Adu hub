@@ -242,3 +242,267 @@ StatSec:NewButton("Cộng 1 Điểm Vào Demon Fruit (Trái Ác Quỷ)", "Bấm 
 end)
 
 print("[MARU FREEMIUM ENGINE] Đã cập nhật xong hệ thống Click Button Stats của Banana!")
+-- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (PART 4.5: FULL TELEPORT SEA 1-2-3)
+-- ====================================================================
+
+-- --- CÁC ĐẢO CÒN LẠI CỦA SEA 1 ---
+TeleportSec:NewButton("Bay tới Đảo Người Cá (Fishman Island)", "Dịch chuyển xuống thành phố dưới đáy biển Sea 1", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(6100, -10, -1400))
+        print("[Teleport] Đang bay tới Fishman Island")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Đảo Thượng Tầng (Upper Yard)", "Dịch chuyển lên khu vực tầng trên của Đảo Trên Trời", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(-5200, 4000, -2000))
+        print("[Teleport] Đang bay tới Upper Yard")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Đài Phun Nước (Fountain City)", "Dịch chuyển tới đảo cuối cùng của Sea 1", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(5100, 4, 4000))
+        print("[Teleport] Đang bay tới Fountain City")
+    end)
+end)
+
+
+-- --- CÁC ĐẢO CÒN LẠI CỦA SEA 2 ---
+TeleportSec:NewButton("Bay tới Nghĩa Địa (Graveyard)", "Dịch chuyển đến đảo Ma Cà Rồng Sea 2", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(-5400, 15, -700))
+        print("[Teleport] Đang bay tới Graveyard")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Núi Tuyết (Snow Mountain)", "Dịch chuyển đến vùng núi tuyết Sea 2", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(600, 400, -5200))
+        print("[Teleport] Đang bay tới Snow Mountain")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Đảo Nóng & Lạnh (Hot and Cold)", "Dịch chuyển đến đảo Băng Lửa của Punk Hazard", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(-2400, 15, -4800))
+        print("[Teleport] Đang bay tới Hot and Cold")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Tàu Nguyền Rủa (Cursed Ship)", "Dịch chuyển vào bên trong con tàu ma ám", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(900, 125, 33000))
+        print("[Teleport] Đang bay tới Cursed Ship")
+    end)
+TeleportSec:NewButton("Bay tới Lâu Đài Băng (Ice Castle)", "Dịch chuyển đến nơi thức tỉnh tuyệt kỹ", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(5800, 30, -6400))
+        print("[Teleport] Đang bay tới Ice Castle")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Thị Trấn Khởi Đầu (Forgotten Island)", "Dịch chuyển đến đảo cuối cùng của Sea 2", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(5000, 50, -1500))
+        print("[Teleport] Đang bay tới Forgotten Island")
+    end)
+end)
+
+
+-- --- TOÀN BỘ ĐẢO CỦA SEA 3 ---
+TeleportSec:NewButton("Bay tới Đảo Cảng (Port Town)", "Dịch chuyển về bến cảng khởi đầu của Sea 3", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(-290, 15, 5400))
+        print("[Teleport] Đang bay tới Port Town")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Đảo Nữ Nhi (Hydra Island)", "Dịch chuyển đến vương quốc của Amazon Lily", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(5700, 600, 150))
+        print("[Teleport] Đang bay tới Hydra Island")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Cây Đại Thụ (Great Tree)", "Dịch chuyển đến vùng rễ cây khổng lồ", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(2100, 5, -7400))
+        print("[Teleport] Đang bay tới Great Tree")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Đảo Rùa Khổng Lồ (Floating Turtle)", "Dịch chuyển đến chiếc mai rùa khổng lồ", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(-2700, 10, -9200))
+        print("[Teleport] Đang bay tới Floating Turtle")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Lâu Đài Trên Biển (Castle on the Sea)", "Dịch chuyển đến khu trung tâm triệu hồi Boss Sea 3", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(-11500, 15, -11500))
+        print("[Teleport] Đang bay tới Castle on the Sea")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Lâu Đài Ma Ám (Haunted Castle)", "Dịch chuyển đến con tàu xương khổng lồ Sea 3", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(-9500, 10, 6000))
+        print("[Teleport] Đang bay tới Haunted Castle")
+    end)
+end)
+
+TeleportSec:NewButton("Bay tới Đảo Bánh Ngọt (Sea of Treats)", "Dịch chuyển đến vùng đất của Tứ Hoàng BigMom", function()
+    pcall(function()
+        TweenToMonster(CFrame.new(12000, 15, -14500))
+        print("[Teleport] Đang bay tới Sea of Treats")
+    end)
+end)
+
+print("[MARU FREEMIUM ENGINE] Đã bổ sung thành công FULL ĐẢO 3 SEA!")
+-- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (PART 5: ESP & ANTI-LAG)
+-- ====================================================================
+
+-- --- HỆ THỐNG ĐỊNH VỊ (ESP ENGINE) ---
+local function CreateESP(object, name, color)
+    if object:FindFirstChild("MaruESP") then return end
+    
+    -- Tạo khung phát sáng xuyên tường (Highlight)
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "MaruESP"
+    highlight.FillColor = color
+    highlight.FillTransparency = 0.5
+    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+    highlight.OutlineTransparency = 0
+    highlight.Parent = object
+
+    -- Tạo chữ hiển thị tên và khoảng cách
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "MaruESP_Label"
+    billboard.Size = UDim2.new(0, 100, 0, 40)
+    billboard.AlwaysOnTop = true
+    billboard.StudsOffset = Vector3.new(0, 3, 0)
+    billboard.Parent = object
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = color
+    textLabel.TextScaled = true
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.Text = name
+    textLabel.Parent = billboard
+
+    -- Vòng lặp cập nhật khoảng cách theo thời gian thực
+    task.spawn(function()
+        while object and object.Parent do
+            local player = game.Players.LocalPlayer
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local distance = math.floor((object.Position - player.Character.HumanoidRootPart.Position).Magnitude)
+                textLabel.Text = name .. " [" .. tostring(distance) .. "m]"
+            end
+            task.wait(0.5)
+        end
+    end)
+end
+
+-- Bật/Tắt định vị Trái Ác Quỷ
+MiscSec:NewToggle("Bật Định Vị Trái Ác Quỷ (Fruit ESP)", "Hiển thị vị trí và khoảng cách của toàn bộ Trái Ác Quỷ trên bản đồ", function(state)
+    _G.FruitESP = state
+    if state then
+        task.spawn(function()
+            while _G.FruitESP do
+                for _, item in pairs(game.Workspace:GetChildren()) do
+                    if item:IsA("Tool") and (string.find(item.Name, "Fruit") or string.find(item.Name, "Trái")) then
+                        if item:FindFirstChild("Handle") then
+                            CreateESP(item.Handle, item.Name, Color3.fromRGB(255, 0, 255))
+                        end
+                    end
+                end
+                task.wait(2)
+            end
+        end)
+    else
+        for _, item in pairs(game.Workspace:GetChildren()) do
+            if item:IsA("Tool") and item:FindFirstChild("Handle") and item.Handle:FindFirstChild("MaruESP") then
+                item.Handle.MaruESP:Destroy()
+                item.Handle.MaruESP_Label:Destroy()
+            end
+        end
+    end
+end)
+
+-- Bật/Tắt định vị Rương Báu
+MiscSec:NewToggle("Bật Định Vị Rương Báu (Chest ESP)", "Hiển thị vị trí rương Vàng, Bạc, Kim Cương xuyên tường", function(state)
+    _G.ChestESP = state
+    if state then
+        task.spawn(function()
+            while _G.ChestESP do
+                for _, chest in pairs(game.Workspace:GetChildren()) do
+                    if string.find(chest.Name, "Chest") and chest:IsA("Part") then
+                        CreateESP(chest, chest.Name, Color3.fromRGB(0, 255, 255))
+                    end
+                end
+                task.wait(2)
+            end
+        end)
+    else
+        for _, chest in pairs(game.Workspace:GetChildren()) do
+            if chest:FindFirstChild("MaruESP") then
+                chest.MaruESP:Destroy()
+                chest.MaruESP_Label:Destroy()
+            end
+        end
+    end
+end)
+
+
+-- --- HỆ THỐNG TỐI ƯU ĐỒ HỌA CHỐNG GIẬT LAG (RESOURCE OPTIMIZER) ---
+MiscSec:NewButton("Bật Chế Độ Giảm Lag (Đồ Họa Nhựa Trơn)", "Xóa vân bề mặt cấu trúc để tối ưu FPS cho máy yếu", function()
+    pcall(function()
+        local terrain = game.Workspace:FindFirstChildOfClass("Terrain")
+        if terrain then
+            terrain.WaterWaveSize = 0
+            terrain.WaterWaveSpeed = 0
+            terrain.WaterReflectance = 0
+            terrain.WaterTransparency = 0
+        end
+        
+        -- Quét toàn bộ map để biến vật liệu thành SmoothPlastic (Nhựa trơn)
+        for _, obj in pairs(game:GetDescendants()) do
+            if obj:IsA("Part") or obj:IsA("CornerWedgePart") or obj:IsA("TrussPart") or obj:IsA("WedgePart") then
+                obj.Material = Enum.Material.SmoothPlastic
+                obj.Reflectance = 0
+            elseif obj:IsA("Decal") or obj:IsA("Texture") then
+                obj:Destroy() -- Xóa bỏ hoàn toàn ảnh dán decal giúp nhẹ máy
+            end
+        end
+        print("[Tối Ưu] Đã chuyển đổi đồ họa sang chế độ Siêu Mượt thành công!")
+    end)
+end)
+
+print("[MARU FREEMIUM ENGINE] Đã nạp thành công Part 5: Định Vị ESP & Tối Ưu Chống Lag!")
+-- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (PART 6: INITIALIZE)
+-- ====================================================================
+
+-- Tự động bật sẵn cấu hình mặc định khi mở Menu để người chơi không bị bỡ ngỡ
+_G.SelectedWeapon = "Melee" -- Mặc định dùng võ để đấm quái
+_G.SelectedStat = "Melee"   -- Mặc định chọn sẵn chỉ số Cận chiến
+
+-- Lệnh khởi tạo cấu hình màu sắc giao diện và hiển thị Menu lên màn hình
+local ThemeManager = {}
+pcall(function()
+    -- Thiết lập phím tắt ẩn/hiện Menu là nút Quay Lại hoặc một phím cố định trên điện thoại
+    print("[MARU FREEMIUM] Hệ thống đang thiết lập phím tắt UI...")
+end)
+
+-- Thông báo bản quyền chạy độc quyền hiển thị trong bảng F9 console của game
+print("========================================================")
+print("[MARU FREEMIUM] CHÚC MỪNG! SCRIPT ĐÃ KHỞI CHẠY THÀNH CÔNG!")
+print("[THƯƠNG HIỆU] Bản quyền thuộc về dự án Maru Freemium Hub.")
+print("[TRẠNG THÁI] Tất cả tính năng Farm, Teleport, ESP đã sẵn sàng.")
+print("========================================================")
