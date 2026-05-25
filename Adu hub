@@ -1,4 +1,33 @@
 -- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (PART 0: BOOT & UI INITIALIZE)
+-- ====================================================================
+
+-- Tải thư viện Kavo UI Library (Giao diện menu giống các Hub lớn)
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("MARU FREEMIUM - PERFECT EDITION", "Midnight")
+
+-- Tạo các Tab chính trong Menu
+local MainTab = Window:NewTab("Auto Farm")
+local TeleportTab = Window:NewTab("Teleport")
+local MiscTab = Window:NewTab("Tiện Ích")
+local StatTab = Window:NewTab("Stats Chỉ Số")
+
+-- Tạo các Section để chứa nút bấm bên trong Tab
+local FarmSec = MainTab:NewSection("Cày Cấp Siêu Tốc")
+local TeleportSec = TeleportTab:NewSection("Dịch Chuyển Đảo Sea 1-2-3")
+local MiscSec = MiscTab:NewSection("Định Vị ESP & Tối Ưu")
+local StatSec = StatTab:NewSection("Cộng Điểm Bằng Tay (Style Banana)")
+
+-- Dữ liệu mẫu khởi tạo cấu hình tránh lỗi biến trống
+BloxFruitsData = {
+    Sea1 = {
+        {Level = 1, QuestName = "Bandit", QuestId = 1, MonsterName = "Bandit", Position = CFrame.new(1060, 16, 1551)},
+        {Level = 10, QuestName = "Monkey", QuestId = 1, MonsterName = "Monkey", Position = CFrame.new(-1600, 37, 153)}
+    },
+    Sea2 = {},
+    Sea3 = {}
+}
+-- ====================================================================
 --            MARU FREEMIUM - PERFECT EDITION (CORE DATA BASE)
 --            TOTAL LINES TARGET: 20,000+ (PART 1: DATA ENGINE)
 -- ====================================================================
@@ -506,3 +535,39 @@ print("[MARU FREEMIUM] CHÚC MỪNG! SCRIPT ĐÃ KHỞI CHẠY THÀNH CÔNG!")
 print("[THƯƠNG HIỆU] Bản quyền thuộc về dự án Maru Freemium Hub.")
 print("[TRẠNG THÁI] Tất cả tính năng Farm, Teleport, ESP đã sẵn sàng.")
 print("========================================================")
+-- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (BONUS: MEME BUTTON)
+-- ====================================================================
+
+MiscSec:NewButton("Bật Meme Anh Da Đen Sốc", "Bấm để hiển thị hình ảnh meme anh da đen cực sốc lên màn hình", function()
+    pcall(function()
+        -- Tìm xem màn hình đã có ảnh meme chưa, nếu có rồi thì xóa đi để không bị trùng
+        local player = game.Players.LocalPlayer
+        local screenGui = player.PlayerGui:FindFirstChild("MaruMemeGui")
+        if screenGui then
+            screenGui:Destroy()
+        end
+        
+        -- Tạo giao diện hiển thị ảnh mới
+        local gui = Instance.new("ScreenGui")
+        gui.Name = "MaruMemeGui"
+        gui.Parent = player.PlayerGui
+        
+        local imageLabel = Instance.new("ImageLabel")
+        imageLabel.Size = UDim2.new(0, 300, 0, 300) -- Kích thước ảnh (300x300 pixel)
+        imageLabel.Position = UDim2.new(0.5, -150, 0.5, -150) -- Căn chính giữa màn hình điện thoại
+        imageLabel.BackgroundTransparency = 1 -- Xóa nền đen của ảnh
+        
+        -- Dùng ID ảnh Meme Anh Da Đen Sốc đã được duyệt trên hệ thống Roblox
+        imageLabel.Image = "rbxassetid://12543324546" 
+        imageLabel.Parent = gui
+        
+        print("[Meme] Đã bật ảnh anh da đen sốc!")
+        
+        -- Tự động xóa ảnh sau 3 giây để người chơi còn chơi game tiếp
+        task.wait(3)
+        if gui then
+            gui:Destroy()
+        end
+    end)
+end)
