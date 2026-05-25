@@ -208,3 +208,37 @@ task.spawn(function()
 end)
 
 print("[MARU FREEMIUM ENGINE] Đã nạp thành công Part 2: Logic Farm Quái & Fast Attack!")
+-- ====================================================================
+--            MARU FREEMIUM - PERFECT EDITION (PART 3.5: BUTTON STATS)
+-- ====================================================================
+
+-- Các nút bấm cộng điểm trực tiếp giống hệt Banana Hub (Mỗi lần bấm cộng 1 điểm)
+StatSec:NewButton("Cộng 1 Điểm Vào Melee (Cận Chiến)", "Bấm để cộng ngay 1 điểm vào thuộc tính Melee", function()
+    pcall(function()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AddPoint", "Melee", 1)
+        print("[Stats] Đã cộng 1 điểm vào Melee")
+    end)
+end)
+
+StatSec:NewButton("Cộng 1 Điểm Vào Defense (Máu/Thủ)", "Bấm để cộng ngay 1 điểm vào thuộc tính Defense", function()
+    pcall(function()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AddPoint", "Defense", 1)
+        print("[Stats] Đã cộng 1 điểm vào Defense")
+    end)
+end)
+
+StatSec:NewButton("Cộng 1 Điểm Vào Sword (Kiếm)", "Bấm để cộng ngay 1 điểm vào thuộc tính Sword", function()
+    pcall(function()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AddPoint", "Sword", 1)
+        print("[Stats] Đã cộng 1 điểm vào Sword")
+    end)
+end)
+
+StatSec:NewButton("Cộng 1 Điểm Vào Demon Fruit (Trái Ác Quỷ)", "Bấm để cộng ngay 1 điểm vào thuộc tính Fruit", function()
+    pcall(function()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AddPoint", "Demon Fruit", 100)
+        print("[Stats] Đã cộng 1 điểm vào Demon Fruit")
+    end)
+end)
+
+print("[MARU FREEMIUM ENGINE] Đã cập nhật xong hệ thống Click Button Stats của Banana!")
